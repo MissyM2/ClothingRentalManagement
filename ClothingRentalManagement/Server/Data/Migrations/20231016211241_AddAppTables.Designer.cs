@@ -4,6 +4,7 @@ using ClothingRentalManagement.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClothingRentalManagement.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231016211241_AddAppTables")]
+    partial class AddAppTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,26 +96,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e77eb6a4-ac73-4c62-a172-36be76b10ad1",
-                            Email = "admin@localhost.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGdFpMVv0/Uqx5fbpctZuxysWpIosNUGU84htHFTI0fQNa5QmsdMNARWNkUyjzXVCA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a5c93dfd-6a5f-4db6-b61a-6f539f257fb4",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("ClothingRentalManagement.Shared.Domain.ApparelItem", b =>
@@ -238,44 +221,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(602),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(641),
-                            Name = "LuluLemon",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(644),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(645),
-                            Name = "Patagonia",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(647),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(648),
-                            Name = "TopShop",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(650),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(651),
-                            Name = "JCrew",
-                            UpdatedBy = "System"
-                        });
                 });
 
             modelBuilder.Entity("ClothingRentalManagement.Shared.Domain.Color", b =>
@@ -307,35 +252,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(866),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(867),
-                            Name = "Black",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(871),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(872),
-                            Name = "White",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(875),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(876),
-                            Name = "Red",
-                            UpdatedBy = "System"
-                        });
                 });
 
             modelBuilder.Entity("ClothingRentalManagement.Shared.Domain.Season", b =>
@@ -367,44 +283,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seasons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1006),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1007),
-                            Name = "Winter",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1010),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1011),
-                            Name = "Spring",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1012),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1013),
-                            Name = "Summer",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1015),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1016),
-                            Name = "Fall",
-                            UpdatedBy = "System"
-                        });
                 });
 
             modelBuilder.Entity("ClothingRentalManagement.Shared.Domain.Size", b =>
@@ -436,35 +314,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1139),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1140),
-                            Name = "Small",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1142),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1143),
-                            Name = "Medium",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1145),
-                            DateUpdated = new DateTime(2023, 10, 16, 17, 43, 12, 149, DateTimeKind.Local).AddTicks(1146),
-                            Name = "Large",
-                            UpdatedBy = "System"
-                        });
                 });
 
             modelBuilder.Entity("ClothingRentalManagement.Shared.Domain.Wearer", b =>
@@ -719,20 +568,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -822,13 +657,6 @@ namespace ClothingRentalManagement.Server.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-                            RoleId = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
