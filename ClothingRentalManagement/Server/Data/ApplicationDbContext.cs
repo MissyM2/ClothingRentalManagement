@@ -17,8 +17,8 @@ namespace ClothingRentalManagement.Server.Data
         }
 
         public DbSet<ApparelItem> ApparelItems { get; set; }
-        public DbSet<Brand> Brands { get; set; }
         public DbSet<ApparelType> ApparelTypes { get; set; }
+        public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Size> Sizes { get; set; }
@@ -29,6 +29,7 @@ namespace ClothingRentalManagement.Server.Data
         {
             base.OnModelCreating(builder);
 
+            builder.ApplyConfiguration(new ApparelTypeSeedConfiguration());
             builder.ApplyConfiguration(new BrandSeedConfiguration());
             builder.ApplyConfiguration(new ColorSeedConfiguration());
             builder.ApplyConfiguration(new SeasonSeedConfiguration());
