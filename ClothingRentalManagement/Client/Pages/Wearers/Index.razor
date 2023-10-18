@@ -1,0 +1,67 @@
+﻿@page "/wearers/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">List of Wearers</h3>
+<br />
+<br />
+@if (Wearers == null)
+{
+    <div class="alert alert-info">Loading wearers...</div>
+}
+else
+{
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var wearer in Wearers)
+            {
+                <tr>
+                    <td>@wearer.Address</td>
+
+                    <td>
+                        <a href="/wearers/view/@wearer.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/wearers/edit/@wearer.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(wearer.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Wearer> Wearers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Wearers = await _client.GetFromJsonAsync<List<Wearer>>($"{Endpoints.WearersEndpoint}");
+    }
+
+    async Task Delete(int wearersId)
+    {
+        var wearers = Wearers.First(q => q.Id == wearersId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {wearers.LastName}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.WearersEndpoint}/{wearersId}");
+            await OnInitializedAsync();
+        }
+
+    }
+}

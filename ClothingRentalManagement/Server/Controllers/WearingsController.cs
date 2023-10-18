@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothingRentalManagement.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class WearingsController : ControllerBase
     {
@@ -22,7 +22,8 @@ namespace ClothingRentalManagement.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWearings()
         {
-            var Wearings = await _unitOfWork.Wearings.GetAll();
+            var includes = new List<string>{"ApparelItem", "Wearer"};
+            var Wearings = await _unitOfWork.Wearings.GetAll(includes: includes);
             return Ok(Wearings);
         }
 
@@ -30,6 +31,7 @@ namespace ClothingRentalManagement.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWearing(int id)
         {
+            var includes = new List<string> { "ApparelItem", "Wearer" };
             var Wearing = await _unitOfWork.Wearings.Get(q => q.Id == id);
 
             if (Wearing == null)

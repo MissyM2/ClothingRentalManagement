@@ -1,0 +1,67 @@
+﻿@page "/seasons/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">List of Seasons</h3>
+<br />
+<br />
+@if (Seasons == null)
+{
+    <div class="alert alert-info">Loading seasons...</div>
+}
+else
+{
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var season in Seasons)
+            {
+                <tr>
+                    <td>@season.Name</td>
+
+                    <td>
+                        <a href="/seasons/view/@season.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/seasons/edit/@season.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(season.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Season> Seasons;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Seasons = await _client.GetFromJsonAsync<List<Season>>($"{Endpoints.SeasonsEndpoint}");
+    }
+
+    async Task Delete(int seasonsId)
+    {
+        var seasons = Seasons.First(q => q.Id == seasonsId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {seasons.Name}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.SeasonsEndpoint}/{seasonsId}");
+            await OnInitializedAsync();
+        }
+
+    }
+}

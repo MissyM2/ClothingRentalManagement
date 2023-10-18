@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClothingRentalManagement.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class SeasonsController : ControllerBase
     {
