@@ -1,0 +1,126 @@
+﻿@page "/apparelitems/create"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Apparel Item</h3>
+<hr />
+<br />
+
+<EditForm Model="@apparelItem" OnValidSubmit="CreateApparelItem">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <!-- selection is made using html tags -->
+    <div class="form-group">
+        <label>Apparel Type: </label>
+        <div>
+            <select @bind="apparelItem.ApparelTypeId" class="form-control">
+                <option value="">-- Select Apparel Type --</option>
+                @if (ApparelTypes != null)
+                {
+                    foreach (var apparelType in ApparelTypes)
+                    {
+                        <option value="@apparelType.Id">@apparelType.Name</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="@(() => apparelItem.ApparelTypeId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Brand: </label>
+        <div>
+            <select @bind="apparelItem.BrandId" class="form-control">
+                <option value="">-- Select Brand --</option>
+                @if (Brands != null)
+                {
+                    foreach (var brand in Brands)
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="@(() => apparelItem.BrandId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Color: </label>
+        <div>
+            <select @bind="apparelItem.ColorId" class="form-control">
+                <option value="">-- Select Color --</option>
+                @if (Colors != null)
+                {
+                    foreach (var color in Colors)
+                    {
+                        <option value="@color.Id">@color.Name</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="@(() => apparelItem.ColorId)" />
+        </div>
+    </div>
+    <!-- selection is made with Blazor component -->
+     <div class="form-group">
+        <label>Season: </label>
+        <div>
+            <InputSelect @bind-Value="apparelItem.SeasonId" class="form-control">
+                <option value="">-- Select Season --</option>
+                @if (Seasons != null)
+                {
+                    foreach (var season in Seasons)
+                    {
+                        <option value="@season.Id">@season.Name</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => apparelItem.Season.Id)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Size: </label>
+        <div>
+            <InputSelect @bind-Value="apparelItem.SizeId" class="form-control">
+                <option value="">-- Select Size</option>
+                @if (Sizes != null)
+                {
+                    foreach (var size in Sizes)
+                    {
+                        <option value="@size.Id">@size.Name</option>
+                    }
+                }
+            </InputSelect>
+            <ValidationMessage For="@(() => apparelItem.SizeId)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block">
+        Create Apparel Item
+    </button>
+
+</EditForm>
+
+@code {
+    ApparelItem apparelItem = new ApparelItem();
+    private IList<ApparelType> ApparelTypes;
+    private IList<Brand> Brands;
+    private IList<Color> Colors;
+    private IList<Season> Seasons;
+    private IList<Size> Sizes;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ApparelTypes = await _client.GetFromJsonAsync<List<ApparelType>>($"{Endpoints.ApparelTypesEndpoint}");
+        Brands = await _client.GetFromJsonAsync<List<Brand>>($"{Endpoints.BrandsEndpoint}");
+        Colors = await _client.GetFromJsonAsync<List<Color>>($"{Endpoints.ColorsEndpoint}");
+        Seasons = await _client.GetFromJsonAsync<List<Season>>($"{Endpoints.SeasonsEndpoint}");
+        Sizes = await _client.GetFromJsonAsync<List<Size>>($"{Endpoints.SizesEndpoint}");
+    }
+
+    private async Task CreateApparelItem()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ApparelItemsEndpoint, apparelItem);
+        _navManager.NavigateTo("/apparelitems/");
+    }
+
+}

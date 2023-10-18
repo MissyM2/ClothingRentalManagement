@@ -1,0 +1,27 @@
+﻿@page "/colors/create/"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Color</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Color" OnValidSubmit="@CreateColor" color="color" />
+
+@code {
+    Color color = new Color();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CreateColor()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ColorsEndpoint, color);
+        _navManager.NavigateTo("/colors/");
+    }
+
+}

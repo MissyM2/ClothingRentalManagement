@@ -1,0 +1,27 @@
+﻿@page "/seasons/create/"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Season</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Season" OnValidSubmit="@CreateSeason" season="season" />
+
+@code {
+    Season season = new Season();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CreateSeason()
+    {
+        await _client.PostAsJsonAsync(Endpoints.SeasonsEndpoint, season);
+        _navManager.NavigateTo("/seasons/");
+    }
+
+}

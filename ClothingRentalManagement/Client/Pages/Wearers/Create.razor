@@ -1,0 +1,28 @@
+﻿@page "/wearers/create/"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Wearer</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Wearer" OnValidSubmit="@CreateWearer" wearer="wearer" />
+
+
+@code {
+    Wearer wearer = new Wearer();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CreateWearer()
+    {
+        await _client.PostAsJsonAsync(Endpoints.WearersEndpoint, wearer);
+        _navManager.NavigateTo("/wearers/");
+    }
+
+}

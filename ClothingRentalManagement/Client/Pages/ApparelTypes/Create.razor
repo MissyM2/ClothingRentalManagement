@@ -1,0 +1,27 @@
+﻿@page "/appareltypes/create/"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Apparel Type</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Apparel Type" OnValidSubmit="@CreateApparelType" appareltype="apparelType" />
+
+@code {
+    ApparelType apparelType = new ApparelType();
+
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CreateApparelType()
+    {
+        await _client.PostAsJsonAsync(Endpoints.ApparelTypesEndpoint, apparelType);
+        _navManager.NavigateTo("/appareltypes/");
+    }
+
+}
