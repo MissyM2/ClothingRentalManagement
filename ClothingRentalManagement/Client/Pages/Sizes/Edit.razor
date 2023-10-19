@@ -1,0 +1,27 @@
+﻿@page "/sizes/edit/{id:int}"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="@EditSize" size="size" />
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Size size = new Size();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        size = await _client.GetFromJsonAsync<Size>($"{Endpoints.SizesEndpoint}/{id}");
+    }
+
+    async Task EditSize()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.SizesEndpoint}/{id}", size);
+        _navManager.NavigateTo("/sizes/");
+    }
+
+}
+

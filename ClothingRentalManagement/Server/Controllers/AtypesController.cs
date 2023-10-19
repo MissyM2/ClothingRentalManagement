@@ -9,48 +9,48 @@ namespace ClothingRentalManagement.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApparelTypesController : ControllerBase
+    public class AtypesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ApparelTypesController(IUnitOfWork unitOfWork)
+        public AtypesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: /ApparelTypes
+        // GET: /Atypes
         [HttpGet]
-        public async Task<IActionResult> GetApparelTypes()
+        public async Task<IActionResult> GetAtypes()
         {
-            var ApparelTypes = await _unitOfWork.ApparelTypes.GetAll();
-            return Ok(ApparelTypes);
+            var Atypes = await _unitOfWork.Atypes.GetAll();
+            return Ok(Atypes);
         }
 
-        // GET: /ApparelTypes/5
+        // GET: /Atypes/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetApparelType(int id)
+        public async Task<IActionResult> GetAtype(int id)
         {
-            var ApparelType = await _unitOfWork.ApparelTypes.Get(q => q.Id == id);
+            var Atype = await _unitOfWork.Atypes.Get(q => q.Id == id);
 
-            if (ApparelType == null)
+            if (Atype == null)
             {
                 return NotFound();
             }
 
-            return Ok(ApparelType);
+            return Ok(Atype);
         }
 
-        // PUT: api/ApparelTypes/5
+        // PUT: api/Atypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutApparelType(int id, ApparelType ApparelType)
+        public async Task<IActionResult> PutAtype(int id, Atype Atype)
         {
-            if (id != ApparelType.Id)
+            if (id != Atype.Id)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.ApparelTypes.Update(ApparelType);
+            _unitOfWork.Atypes.Update(Atype);
 
             try
             {
@@ -58,7 +58,7 @@ namespace ClothingRentalManagement.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await ApparelTypeExists(id))
+                if (!await AtypeExists(id))
                 {
                     return NotFound();
                 }
@@ -71,36 +71,36 @@ namespace ClothingRentalManagement.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/ApparelTypes
+        // POST: api/Atypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ApparelType>> PostApparelType(ApparelType ApparelType)
+        public async Task<ActionResult<Atype>> PostAtype(Atype Atype)
         {
-            await _unitOfWork.ApparelTypes.Insert(ApparelType);
+            await _unitOfWork.Atypes.Insert(Atype);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetApparelType", new { id = ApparelType.Id }, ApparelType);
+            return CreatedAtAction("GetAtype", new { id = Atype.Id }, Atype);
         }
 
-        // DELETE: api/ApparelTypes/5
+        // DELETE: api/Atypes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteApparelType(int id)
+        public async Task<IActionResult> DeleteAtype(int id)
         {
-            var ApparelType = await _unitOfWork.ApparelTypes.Get(q => q.Id == id);
-            if (ApparelType == null)
+            var Atype = await _unitOfWork.Atypes.Get(q => q.Id == id);
+            if (Atype == null)
             {
                 return NotFound();
             }
-            await _unitOfWork.ApparelTypes.Delete(id);
+            await _unitOfWork.Atypes.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> ApparelTypeExists(int id)
+        private async Task<bool> AtypeExists(int id)
         {
-            var ApparelType = await _unitOfWork.ApparelTypes.Get(q => q.Id == id);
-            return ApparelType == null;
+            var Atype = await _unitOfWork.Atypes.Get(q => q.Id == id);
+            return Atype == null;
         }
     }
 }

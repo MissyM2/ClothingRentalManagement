@@ -9,50 +9,50 @@ namespace ClothingRentalManagement.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApparelItemsController : ControllerBase
+    public class AitemsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ApparelItemsController(IUnitOfWork unitOfWork)
+        public AitemsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: /ApparelItems
+        // GET: /Aitems
         [HttpGet]
-        public async Task<IActionResult> GetApparelItems()
+        public async Task<IActionResult> GetAitems()
         {
             var includes = new List<string> { "Brand", "ApparelType", "Color", "Season", "Size" };
-            var ApparelItems = await _unitOfWork.ApparelItems.GetAll();
-            return Ok(ApparelItems);
+            var Aitems = await _unitOfWork.Aitems.GetAll();
+            return Ok(Aitems);
         }
 
-        // GET: /ApparelItems/5
+        // GET: /Aitems/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetApparelItem(int id)
+        public async Task<IActionResult> GetAitem(int id)
         {
             var includes = new List<string> { "Brand", "ApparelType", "Color", "Season", "Size", "Wearings" };
-            var ApparelItem = await _unitOfWork.ApparelItems.Get(q => q.Id == id);
+            var Aitem = await _unitOfWork.Aitems.Get(q => q.Id == id);
 
-            if (ApparelItem == null)
+            if (Aitem == null)
             {
                 return NotFound();
             }
 
-            return Ok(ApparelItem);
+            return Ok(Aitem);
         }
 
-        // PUT: api/ApparelItems/5
+        // PUT: api/Aitems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutApparelItem(int id, ApparelItem ApparelItem)
+        public async Task<IActionResult> PutAitem(int id, Aitem Aitem)
         {
-            if (id != ApparelItem.Id)
+            if (id != Aitem.Id)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.ApparelItems.Update(ApparelItem);
+            _unitOfWork.Aitems.Update(Aitem);
 
             try
             {
@@ -60,7 +60,7 @@ namespace ClothingRentalManagement.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await ApparelItemExists(id))
+                if (!await AitemExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace ClothingRentalManagement.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/ApparelItems
+        // POST: api/Aitems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ApparelItem>> PostApparelItem(ApparelItem ApparelItem)
+        public async Task<ActionResult<Aitem>> PostAitem(Aitem Aitem)
         {
-            await _unitOfWork.ApparelItems.Insert(ApparelItem);
+            await _unitOfWork.Aitems.Insert(Aitem);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetApparelItem", new { id = ApparelItem.Id }, ApparelItem);
+            return CreatedAtAction("GetAitem", new { id = Aitem.Id }, Aitem);
         }
 
-        // DELETE: api/ApparelItems/5
+        // DELETE: api/Aitems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteApparelItem(int id)
+        public async Task<IActionResult> DeleteAitem(int id)
         {
-            var ApparelItem = await _unitOfWork.ApparelItems.Get(q => q.Id == id);
-            if (ApparelItem == null)
+            var Aitem = await _unitOfWork.Aitems.Get(q => q.Id == id);
+            if (Aitem == null)
             {
                 return NotFound();
             }
-            await _unitOfWork.ApparelItems.Delete(id);
+            await _unitOfWork.Aitems.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> ApparelItemExists(int id)
+        private async Task<bool> AitemExists(int id)
         {
-            var ApparelItem = await _unitOfWork.ApparelItems.Get(q => q.Id == id);
-            return ApparelItem == null;
+            var Aitem = await _unitOfWork.Aitems.Get(q => q.Id == id);
+            return Aitem == null;
         }
     }
 }

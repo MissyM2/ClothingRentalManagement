@@ -1,0 +1,72 @@
+﻿@page "/aitems/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<HeadingComponent Text="Apparel Items" />
+<br />
+<a href="/aitems/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Apparel Item
+</a>
+<br />
+<br />
+@if (Aitems == null)
+{
+    <div class="alert alert-info">Loading Apparel Items...</div>
+}
+else
+{
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aitem in Aitems)
+            {
+                <tr>
+                    <td>@aitem.ShortDesc</td>
+
+                    <td>
+                        <a href="/aitems/view/@aitem.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/aitems/edit/@aitem.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(aitem.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Aitem> Aitems;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Aitems = await _client.GetFromJsonAsync<List<Aitem>>($"{Endpoints.AitemsEndpoint}");
+    }
+
+    async Task Delete(int aitemsId)
+    {
+        var aitems = Aitems.First(q => q.Id == aitemsId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {aitems.ShortDesc}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.AitemsEndpoint}/{aitemsId}");
+            await OnInitializedAsync();
+        }
+
+    }
+}

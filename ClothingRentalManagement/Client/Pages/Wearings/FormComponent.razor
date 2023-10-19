@@ -1,5 +1,23 @@
-﻿<h3>FormComponent</h3>
+﻿@* ﻿<EditForm Model="@wearing" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Name:</label>
+        <div>
+            <InputText @bind-Value="@wearing.DateIn" class="form-control" />
+            <ValidationMessage For="@(() => wearing.DateIn)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">
+        @ButtonText
+    </button>
+    <BackToList Target="wearings" />
+</EditForm> *@
 
 @code {
+    [Parameter] public Wearing wearing { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
 }

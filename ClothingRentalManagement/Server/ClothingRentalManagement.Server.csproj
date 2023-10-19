@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+	  <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>ClothingRentalManagement.Server-af302108-3ffb-4c3a-b16d-21d8bc08825e</UserSecretsId>
   </PropertyGroup>

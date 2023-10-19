@@ -8,8 +8,8 @@ namespace ClothingRentalManagement.Server.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        private IGenericRepository<ApparelItem> _apparelItems;
-        private IGenericRepository<ApparelType> _apparelTypes;
+        private IGenericRepository<Aitem> _aitems;
+        private IGenericRepository<Atype> _atypes;
         private IGenericRepository<Brand> _brands;
         private IGenericRepository<Color> _colors;
         private IGenericRepository<Season> _seasons;
@@ -22,10 +22,10 @@ namespace ClothingRentalManagement.Server.Repository
             _context = context;
         }
 
-        public IGenericRepository<ApparelItem> ApparelItems
-            => _apparelItems ??= new GenericRepository<ApparelItem>(_context);
-        public IGenericRepository<ApparelType> ApparelTypes
-            => _apparelTypes ??= new GenericRepository<ApparelType>(_context);
+        public IGenericRepository<Aitem> Aitems
+            => _aitems ??= new GenericRepository<Aitem>(_context);
+        public IGenericRepository<Atype> Atypes
+            => _atypes ??= new GenericRepository<Atype>(_context);
         public IGenericRepository<Brand> Brands
             => _brands ??= new GenericRepository<Brand>(_context);
         public IGenericRepository<Color> Colors

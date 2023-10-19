@@ -1,0 +1,26 @@
+﻿@page "/seasons/edit/{id:int}"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="@EditSeason" season="season" />
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Season season = new Season();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        season = await _client.GetFromJsonAsync<Season>($"{Endpoints.SeasonsEndpoint}/{id}");
+    }
+
+    async Task EditSeason()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.SeasonsEndpoint}/{id}", season);
+        _navManager.NavigateTo("/seasons/");
+    }
+
+}

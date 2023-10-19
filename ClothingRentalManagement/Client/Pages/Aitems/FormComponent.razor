@@ -1,37 +1,38 @@
-﻿@page "/apparelitems/create"
+﻿@inject HttpClient _client
 
-@inject HttpClient _client
-@inject NavigationManager _navManager
-
-<h3 class="card-title">Create New Apparel Item</h3>
-<hr />
-<br />
-
-<EditForm Model="@apparelItem" OnValidSubmit="CreateApparelItem">
+<EditForm Model="@aitem" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
+
+    <div class="form-group">
+        <label>Short Description:</label>
+        <div>
+            <InputText @bind-Value="@aitem.ShortDesc" class="form-control" />
+            <ValidationMessage For="@(() => aitem.ShortDesc)" />
+        </div>
+    </div>
 
     <!-- selection is made using html tags -->
     <div class="form-group">
         <label>Apparel Type: </label>
         <div>
-            <select @bind="apparelItem.ApparelTypeId" class="form-control">
+            <select @bind="aitem.AtypeId" class="form-control">
                 <option value="">-- Select Apparel Type --</option>
-                @if (ApparelTypes != null)
+                @if (Atypes != null)
                 {
-                    foreach (var apparelType in ApparelTypes)
+                    foreach (var atype in Atypes)
                     {
-                        <option value="@apparelType.Id">@apparelType.Name</option>
+                        <option value="@atype.Id">@atype.Name</option>
                     }
                 }
             </select>
-            <ValidationMessage For="@(() => apparelItem.ApparelTypeId)" />
+            <ValidationMessage For="@(() => aitem.AtypeId)" />
         </div>
     </div>
     <div class="form-group">
         <label>Brand: </label>
         <div>
-            <select @bind="apparelItem.BrandId" class="form-control">
+            <select @bind="aitem.BrandId" class="form-control">
                 <option value="">-- Select Brand --</option>
                 @if (Brands != null)
                 {
@@ -41,13 +42,13 @@
                     }
                 }
             </select>
-            <ValidationMessage For="@(() => apparelItem.BrandId)" />
+            <ValidationMessage For="@(() => aitem.BrandId)" />
         </div>
     </div>
     <div class="form-group">
         <label>Color: </label>
         <div>
-            <select @bind="apparelItem.ColorId" class="form-control">
+            <select @bind="aitem.ColorId" class="form-control">
                 <option value="">-- Select Color --</option>
                 @if (Colors != null)
                 {
@@ -57,14 +58,14 @@
                     }
                 }
             </select>
-            <ValidationMessage For="@(() => apparelItem.ColorId)" />
+            <ValidationMessage For="@(() => aitem.ColorId)" />
         </div>
     </div>
     <!-- selection is made with Blazor component -->
-     <div class="form-group">
+    <div class="form-group">
         <label>Season: </label>
         <div>
-            <InputSelect @bind-Value="apparelItem.SeasonId" class="form-control">
+            <InputSelect @bind-Value="aitem.SeasonId" class="form-control">
                 <option value="">-- Select Season --</option>
                 @if (Seasons != null)
                 {
@@ -74,13 +75,13 @@
                     }
                 }
             </InputSelect>
-            <ValidationMessage For="@(() => apparelItem.Season.Id)" />
+            <ValidationMessage For="@(() => aitem.Season.Id)" />
         </div>
     </div>
     <div class="form-group">
         <label>Size: </label>
         <div>
-            <InputSelect @bind-Value="apparelItem.SizeId" class="form-control">
+            <InputSelect @bind-Value="aitem.SizeId" class="form-control">
                 <option value="">-- Select Size</option>
                 @if (Sizes != null)
                 {
@@ -90,19 +91,27 @@
                     }
                 }
             </InputSelect>
-            <ValidationMessage For="@(() => apparelItem.SizeId)" />
+            <ValidationMessage For="@(() => aitem.SizeId)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Additional Description:</label>
+        <div>
+            <InputText @bind-Value="@aitem.LongDesc" class="form-control" />
+            <ValidationMessage For="@(() => aitem.LongDesc)" />
         </div>
     </div>
 
+
     <button type="submit" class="btn btn-success btn-block">
-        Create Apparel Item
+        @ButtonText
     </button>
+    <BackToList Target="aitems" />
 
 </EditForm>
 
 @code {
-    ApparelItem apparelItem = new ApparelItem();
-    private IList<ApparelType> ApparelTypes;
+    private IList<Atype> Atypes;
     private IList<Brand> Brands;
     private IList<Color> Colors;
     private IList<Season> Seasons;
@@ -110,17 +119,16 @@
 
     protected async override Task OnInitializedAsync()
     {
-        ApparelTypes = await _client.GetFromJsonAsync<List<ApparelType>>($"{Endpoints.ApparelTypesEndpoint}");
+        Atypes = await _client.GetFromJsonAsync<List<Atype>>($"{Endpoints.AtypesEndpoint}");
         Brands = await _client.GetFromJsonAsync<List<Brand>>($"{Endpoints.BrandsEndpoint}");
         Colors = await _client.GetFromJsonAsync<List<Color>>($"{Endpoints.ColorsEndpoint}");
         Seasons = await _client.GetFromJsonAsync<List<Season>>($"{Endpoints.SeasonsEndpoint}");
         Sizes = await _client.GetFromJsonAsync<List<Size>>($"{Endpoints.SizesEndpoint}");
     }
 
-    private async Task CreateApparelItem()
-    {
-        await _client.PostAsJsonAsync(Endpoints.ApparelItemsEndpoint, apparelItem);
-        _navManager.NavigateTo("/apparelitems/");
-    }
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Aitem aitem { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
 }

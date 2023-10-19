@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ClothingRentalManagement.Shared.Domain
 {
-    public class ApparelItem : BaseDomainModel
+    public class Aitem : BaseDomainModel
     {
         public string ShortDesc { get; set; } = string.Empty;
         public string LongDesc { get; set; } = string.Empty;
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; } = new Brand();
-        public int ApparelTypeId { get; set; }
-        public virtual ApparelType ApparelType { get; set; } = new ApparelType();
+        public int AtypeId { get; set; }
+        public virtual Atype Atype { get; set; } = new Atype();
         public int ColorId { get; set; }
         public virtual Color Color { get; set; } = new Color();
         public int SeasonId { get; set; }

@@ -5,8 +5,8 @@ namespace ClothingRentalManagement.Server.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         Task Save(HttpContext httpContext);
-        IGenericRepository<ApparelItem> ApparelItems { get; }
-        IGenericRepository<ApparelType> ApparelTypes { get; }
+        IGenericRepository<Aitem> Aitems { get; }
+        IGenericRepository<Atype> Atypes { get; }
         IGenericRepository<Brand> Brands { get; }
         IGenericRepository<Color> Colors { get; }
         IGenericRepository<Season> Seasons { get; }

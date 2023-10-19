@@ -3,7 +3,11 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Wearers</h3>
+<HeadingComponent Text="Wearers" />
+<a href="/wearers/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Wearer
+</a>
 <br />
 <br />
 @if (Wearers == null)

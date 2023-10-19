@@ -3,7 +3,12 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Seasons</h3>
+<HeadingComponent Text="Seasons" />
+<br />
+<a href="/seasons/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Seasons
+</a>
 <br />
 <br />
 @if (Seasons == null)

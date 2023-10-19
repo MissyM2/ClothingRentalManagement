@@ -4,12 +4,12 @@ using ClothingRentalManagement.Shared.Domain;
 
 namespace ClothingRentalManagement.Server.Configurations.Entities
 {
-    public class ApparelTypeSeedConfiguration : IEntityTypeConfiguration<ApparelType>
+    public class AtypeSeedConfiguration : IEntityTypeConfiguration<Atype>
     {
-        public void Configure(EntityTypeBuilder<ApparelType> builder)
+        public void Configure(EntityTypeBuilder<Atype> builder)
         {
             builder.HasData(
-                new ApparelType
+                new Atype
                 {
                     Id = 1,
                     CreatedBy = "System",
@@ -18,7 +18,7 @@ namespace ClothingRentalManagement.Server.Configurations.Entities
                     Name = "Top",
                     UpdatedBy = "System"
                 },
-                new ApparelType
+                new Atype
                 {
                     Id = 2,
                     CreatedBy = "System",
@@ -27,7 +27,7 @@ namespace ClothingRentalManagement.Server.Configurations.Entities
                     Name = "Bottom",
                     UpdatedBy = "System"
                 },
-                new ApparelType
+                new Atype
                 {
                     Id = 3,
                     CreatedBy = "System",
@@ -36,7 +36,7 @@ namespace ClothingRentalManagement.Server.Configurations.Entities
                     Name = "Dress",
                     UpdatedBy = "System"
                 },
-                new ApparelType
+                new Atype
                 {
                     Id = 4,
                     CreatedBy = "System",

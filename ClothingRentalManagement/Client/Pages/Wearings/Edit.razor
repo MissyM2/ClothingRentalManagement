@@ -1,0 +1,27 @@
+﻿@page "/wearings/edit/{id:int}"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="@EditWearing" wearing="wearing" />
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Wearing wearing = new Wearing();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        wearing = await _client.GetFromJsonAsync<Wearing>($"{Endpoints.WearingsEndpoint}/{id}");
+    }
+
+    async Task EditWearing()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.WearingsEndpoint}/{id}", wearing);
+        _navManager.NavigateTo("/wearings/");
+    }
+
+}
+

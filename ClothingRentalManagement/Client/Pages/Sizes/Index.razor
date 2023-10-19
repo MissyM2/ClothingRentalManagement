@@ -3,7 +3,12 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Sizes</h3>
+<HeadingComponent Text="Sizes" />
+<br />
+<a href="/sizes/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Sizes
+</a>
 <br />
 <br />
 @if (Sizes == null)

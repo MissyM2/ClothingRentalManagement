@@ -1,0 +1,27 @@
+﻿@page "/aitems/create"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Apparel Item</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Item" OnValidSubmit="@CreateAitem" aitem="aitem" />
+
+
+@code {
+    Aitem aitem = new Aitem();
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task CreateAitem()
+    {
+        await _client.PostAsJsonAsync(Endpoints.AitemsEndpoint, aitem);
+        _navManager.NavigateTo("/aitems/");
+    }
+
+}

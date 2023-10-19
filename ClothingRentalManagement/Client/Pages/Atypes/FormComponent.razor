@@ -1,22 +1,22 @@
-﻿﻿<EditForm Model="@brand" OnValidSubmit="@OnValidSubmit">
+﻿﻿<EditForm Model="@atype" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
         <label>Name:</label>
         <div>
-            <InputText @bind-Value="@brand.Name" class="form-control" />
-            <ValidationMessage For="@(() => brand.Name)" />
+            <InputText @bind-Value="@atype.Name" class="form-control" />
+            <ValidationMessage For="@(() => atype.Name)" />
         </div>
     </div>
     <button type="submit" class="btn btn-success btn-block">
         @ButtonText
     </button>
-    <BackToList Target="brands" />
+    <BackToList Target="atypes" />
 </EditForm>
 
 @code {
-    [Parameter] public Brand brand { get; set; }
+    [Parameter] public Atype atype { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 

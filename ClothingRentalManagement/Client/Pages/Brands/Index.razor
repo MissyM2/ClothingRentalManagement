@@ -3,10 +3,14 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Brands</h3>
+<HeadingComponent Text="Brands" />
 <br />
+<a href="/brands/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Brand
+</a>
 <br />
-@if (Brands == null)
+<br />@if (Brands == null)
 {
     <div class="alert alert-info">Loading brands...</div>
 }

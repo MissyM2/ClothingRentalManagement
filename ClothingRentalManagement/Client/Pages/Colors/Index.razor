@@ -3,7 +3,12 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Colors</h3>
+<HeadingComponent Text="Colors" />
+<br />
+<a href="/colors/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Color
+</a>
 <br />
 <br />
 @if (Colors == null)

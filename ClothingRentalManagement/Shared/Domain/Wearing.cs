@@ -9,8 +9,8 @@ namespace ClothingRentalManagement.Shared.Domain
 {
     public class Wearing : BaseDomainModel
     {
-        public int ApparelItemId { get; set; }
-        public virtual ApparelItem ApparelItem { get; set; } = new ApparelItem();
+        public int AitemId { get; set; }
+        public virtual Aitem Aitem { get; set; } = new Aitem();
 
         [Required]
         [DataType(DataType.Date)]

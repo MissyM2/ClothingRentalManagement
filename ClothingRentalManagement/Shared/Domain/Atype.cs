@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClothingRentalManagement.Shared.Domain
 {
-    public class ApparelType : BaseDomainModel
+    public class Atype : BaseDomainModel
     {
         [Required]
         public string Name { get; set; } = string.Empty;

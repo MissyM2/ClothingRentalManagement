@@ -4,7 +4,12 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">List of Wearings</h3>
+<HeadingComponent Text="Wearings" />
+<br />
+<a href="/wearings/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Wearing
+</a>
 <br />
 <br />
 @if (Wearings == null)

@@ -1,0 +1,26 @@
+﻿@page "/atypes/edit/{id:int}"
+
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="@EditAtype" atype="atype" />
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    Atype atype = new Atype();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        atype = await _client.GetFromJsonAsync<Atype>($"{Endpoints.AtypesEndpoint}/{id}");
+    }
+
+    async Task EditAtype()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.AtypesEndpoint}/{id}", atype);
+        _navManager.NavigateTo("/atypes/");
+    }
+
+}
